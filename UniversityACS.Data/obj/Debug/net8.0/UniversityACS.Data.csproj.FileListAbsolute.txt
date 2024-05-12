@@ -13,3 +13,4 @@ H:\Git\UniversityACS\UniversityACS.Data\obj\Debug\net8.0\UniversityACS.Data.dll
 H:\Git\UniversityACS\UniversityACS.Data\obj\Debug\net8.0\refint\UniversityACS.Data.dll
 H:\Git\UniversityACS\UniversityACS.Data\obj\Debug\net8.0\UniversityACS.Data.pdb
 H:\Git\UniversityACS\UniversityACS.Data\obj\Debug\net8.0\ref\UniversityACS.Data.dll
+H:\Git\UniversityACS\UniversityACS.Data\obj\Debug\net8.0\UniversityACS.Data.sourcelink.json

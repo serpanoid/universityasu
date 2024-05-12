@@ -15,3 +15,4 @@ H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Ap
 H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\refint\UniversityACS.Application.dll
 H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.pdb
 H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\ref\UniversityACS.Application.dll
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.sourcelink.json
