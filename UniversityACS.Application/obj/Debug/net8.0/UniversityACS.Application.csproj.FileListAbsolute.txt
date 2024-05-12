@@ -1,0 +1,17 @@
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Application.deps.json
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Application.dll
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Application.pdb
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Core.dll
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Data.dll
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Core.pdb
+H:\Git\UniversityACS\UniversityACS.Application\bin\Debug\net8.0\UniversityACS.Data.pdb
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.csproj.AssemblyReference.cache
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.GeneratedMSBuildEditorConfig.editorconfig
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.AssemblyInfoInputs.cache
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.AssemblyInfo.cs
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.csproj.CoreCompileInputs.cache
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\Universi.B2F985D5.Up2Date
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.dll
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\refint\UniversityACS.Application.dll
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\UniversityACS.Application.pdb
+H:\Git\UniversityACS\UniversityACS.Application\obj\Debug\net8.0\ref\UniversityACS.Application.dll
