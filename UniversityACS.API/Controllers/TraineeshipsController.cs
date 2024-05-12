@@ -80,4 +80,17 @@ public class TraineeshipsController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet(ApiEndpoints.Traineeships.GetByUserId)]
+    public async Task<ActionResult<ListResponseDto<TraineeshipDto>>> GetByUserIdAsync(Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _traineeshipService.GetByUserIdAsync(userId, cancellationToken);
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
 }

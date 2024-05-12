@@ -12,4 +12,5 @@ public interface ISyllabusService
     Task<ResponseDto> DeleteAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<DetailsResponseDto<SyllabusDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<ListResponseDto<SyllabusDto>> GetAllAsync(CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<SyllabusDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
 }

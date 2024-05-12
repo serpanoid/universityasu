@@ -107,4 +107,18 @@ public class TraineeshipService : ITraineeshipService
             Success = true
         };
     }
+
+    public async Task<ListResponseDto<TraineeshipDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var traineeships = await _context.Traineeships
+            .Where(x=>x.TraineeId == userId)
+            .ToListAsync(cancellationToken);
+
+        return new ListResponseDto<TraineeshipDto>()
+        {
+            Items = traineeships.Select(t => t.ToDto()).ToList(),
+            TotalCount = traineeships.Count,
+            Success = true
+        };
+    }
 }

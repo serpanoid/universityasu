@@ -12,4 +12,5 @@ public interface IDisciplineService
     Task<ResponseDto> DeleteAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<DetailsResponseDto<DisciplineDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<ListResponseDto<DisciplineDto>> GetAllAsync(CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<DisciplineDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
 }

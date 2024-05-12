@@ -107,4 +107,18 @@ public class SyllabusService : ISyllabusService
             Success = true
         };
     }
+
+    public async Task<ListResponseDto<SyllabusDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var syllabi = await _context.Syllabi
+            .Where(x=>x.TeacherId == userId)
+            .ToListAsync(cancellationToken);
+
+        return new ListResponseDto<SyllabusDto>()
+        {
+            Items = syllabi.Select(x => x.ToDto()).ToList(),
+            TotalCount = syllabi.Count,
+            Success = true
+        };
+    }
 }

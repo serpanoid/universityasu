@@ -12,4 +12,5 @@ public interface IScientificAndPedagogicalActivityService
     Task<ResponseDto> DeleteAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<DetailsResponseDto<ScientificAndPedagogicalActivityDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<ListResponseDto<ScientificAndPedagogicalActivityDto>> GetAllAsync(CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<ScientificAndPedagogicalActivityDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
 }

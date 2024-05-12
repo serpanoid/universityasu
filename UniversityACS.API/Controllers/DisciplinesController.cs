@@ -80,4 +80,17 @@ public class DisciplinesController : ControllerBase
 
         return Ok(response);
     }
+    
+    [HttpGet(ApiEndpoints.Disciplines.GetByUserId)]
+    public async Task<ActionResult<ListResponseDto<DisciplineDto>>> GetByUserIdAsync(Guid userId,
+        CancellationToken cancellationToken = default)
+    {
+        var response = await _disciplineService.GetByUserIdAsync(userId, cancellationToken);
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
 }

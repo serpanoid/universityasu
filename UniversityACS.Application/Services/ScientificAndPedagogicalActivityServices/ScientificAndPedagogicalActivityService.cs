@@ -104,4 +104,18 @@ public class ScientificAndPedagogicalActivityService : IScientificAndPedagogical
             TotalCount = activities.Count
         };
     }
+
+    public async Task<ListResponseDto<ScientificAndPedagogicalActivityDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var activities = await _context.ScientificAndPedagogicalActivities
+            .Where(x=>x.TeacherId == userId)
+            .ToListAsync(cancellationToken);
+        
+        return new ListResponseDto<ScientificAndPedagogicalActivityDto>
+        {
+            Success = true, 
+            Items = activities.Select(a => a.ToDto()).ToList(), 
+            TotalCount = activities.Count
+        };
+    }
 }

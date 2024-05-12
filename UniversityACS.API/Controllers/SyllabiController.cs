@@ -54,4 +54,12 @@ public class SyllabiController : ControllerBase
         var response = await _syllabusService.GetAllAsync(cancellationToken);
         return response.Success ? Ok(response) : BadRequest(response);
     }
+
+    [HttpGet(ApiEndpoints.Syllabi.GetByUserId)]
+    public async Task<ActionResult<ListResponseDto<SyllabusDto>>> GetByUserIdAsync(Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _syllabusService.GetByUserIdAsync(userId, cancellationToken);
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
 }

@@ -12,4 +12,5 @@ public interface ITraineeshipService
     Task<ResponseDto> DeleteAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<DetailsResponseDto<TraineeshipDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
     Task<ListResponseDto<TraineeshipDto>> GetAllAsync(CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<TraineeshipDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
 }

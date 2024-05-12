@@ -10,6 +10,7 @@ public static class DisciplineMappings
         return new Discipline()
         {
             Id = dto.Id,
+            TeacherId = dto.TeacherId,
             Description = dto.Description,
             Name = dto.Name,
             Courses = dto.Courses,
@@ -19,6 +20,7 @@ public static class DisciplineMappings
 
     public static void UpdateEntity(this Discipline discipline, DisciplineDto dto)
     {
+        discipline.TeacherId = dto.TeacherId;
         discipline.Description = dto.Description;
         discipline.Name = dto.Name;
         discipline.Courses = dto.Courses;
@@ -30,6 +32,7 @@ public static class DisciplineMappings
         return new DisciplineDto()
         {
             Id = discipline.Id,
+            TeacherId = discipline.TeacherId,
             Description = discipline.Description,
             Name = discipline.Name,
             Courses = discipline.Courses,

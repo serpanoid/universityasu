@@ -109,4 +109,18 @@ public class DisciplineService : IDisciplineService
             Success = true
         };
     }
+
+    public async Task<ListResponseDto<DisciplineDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var disciplines = await _context.Disciplines
+            .Where(x=>x.TeacherId == userId)
+            .ToListAsync(cancellationToken);
+
+        return new ListResponseDto<DisciplineDto>()
+        {
+            Items = disciplines.Select(x => x.ToDto()).ToList(),
+            TotalCount = disciplines.Count,
+            Success = true
+        };
+    }
 }

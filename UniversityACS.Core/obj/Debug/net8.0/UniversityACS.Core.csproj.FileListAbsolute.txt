@@ -10,3 +10,4 @@ H:\Git\UniversityACS\UniversityACS.Core\obj\Debug\net8.0\UniversityACS.Core.dll
 H:\Git\UniversityACS\UniversityACS.Core\obj\Debug\net8.0\refint\UniversityACS.Core.dll
 H:\Git\UniversityACS\UniversityACS.Core\obj\Debug\net8.0\UniversityACS.Core.pdb
 H:\Git\UniversityACS\UniversityACS.Core\obj\Debug\net8.0\ref\UniversityACS.Core.dll
+H:\Git\UniversityACS\UniversityACS.Core\obj\Debug\net8.0\UniversityACS.Core.sourcelink.json

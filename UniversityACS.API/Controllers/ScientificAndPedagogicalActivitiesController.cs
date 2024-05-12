@@ -55,4 +55,12 @@ public class ScientificAndPedagogicalActivitiesController : ControllerBase
         var response = await _activityService.GetAllAsync(cancellationToken);
         return response.Success ? Ok(response) : BadRequest(response);
     }
+
+    [HttpGet(ApiEndpoints.ScientificAndPedagogicalActivities.GetByUserId)]
+    public async Task<ActionResult<ListResponseDto<ScientificAndPedagogicalActivityDto>>> GetByUserIdAsync(Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _activityService.GetByUserIdAsync(userId, cancellationToken);
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
 }
