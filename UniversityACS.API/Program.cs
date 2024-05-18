@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using UniversityACS.API.Extensions;
+using UniversityACS.API.Middleware;
 using UniversityACS.Data.DataContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
+builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("Default"),
@@ -23,6 +25,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseMiddleware<AppExceptionsMiddleware>();
 
 app.UseHttpsRedirection();
 

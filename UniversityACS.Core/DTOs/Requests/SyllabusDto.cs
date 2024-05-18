@@ -1,4 +1,6 @@
-﻿namespace UniversityACS.Core.DTOs.Requests;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace UniversityACS.Core.DTOs.Requests;
 
 public class SyllabusDto
 {
@@ -6,10 +8,6 @@ public class SyllabusDto
 
     public Guid? TeacherId { get; set; }
     
-    public string? CourseTitle { get; set; }
-    public string? Instructor { get; set; }
-    public string? CourseDescription { get; set; }
-    public string? GradingPolicy { get; set; }
-    public List<string>? Textbooks { get; set; }
-    public List<string>? CourseSchedule { get; set; }
+    public string? Name { get; set; }
+    public IFormFile? File { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using UniversityACS.Core.DTOs;
 using UniversityACS.Core.DTOs.Requests;
+using UniversityACS.Core.DTOs.Responses;
 
 namespace UniversityACS.Application.Services.SyllabusServices;
 
@@ -10,7 +11,7 @@ public interface ISyllabusService
     Task<UpdateResponseDto<SyllabusDto>> UpdateAsync(Guid id, SyllabusDto dto,
         CancellationToken cancellationToken = default!);
     Task<ResponseDto> DeleteAsync(Guid id, CancellationToken cancellationToken = default!);
-    Task<DetailsResponseDto<SyllabusDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
-    Task<ListResponseDto<SyllabusDto>> GetAllAsync(CancellationToken cancellationToken = default!);
-    Task<ListResponseDto<SyllabusDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
+    Task<DetailsResponseDto<SyllabusResponseDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<SyllabusResponseDto>> GetAllAsync(CancellationToken cancellationToken = default!);
+    Task<ListResponseDto<SyllabusResponseDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default!);
 }

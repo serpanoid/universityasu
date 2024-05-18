@@ -4,8 +4,7 @@ public class Discipline
 {
     public Guid Id { get; set; }
     
-    public Guid? TeacherId { get; set; }
-    public ApplicationUser? Teacher { get; set; }
+    public List<ApplicationUser>? Teachers { get; set; }
     
     public string Name { get; set; } = string.Empty;
     public string? FieldOfStudy { get; set; }

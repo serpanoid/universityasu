@@ -112,8 +112,13 @@ public class DisciplineService : IDisciplineService
 
     public async Task<ListResponseDto<DisciplineDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
     {
+        var disciplinesIds = await _context.TeacherDisciplines
+            .Where(x => x.TeacherId == userId)
+            .Select(x => x.DisciplineId)
+            .ToListAsync(cancellationToken);
+        
         var disciplines = await _context.Disciplines
-            .Where(x=>x.TeacherId == userId)
+            .Where(x=>disciplinesIds.Contains(x.Id))
             .ToListAsync(cancellationToken);
 
         return new ListResponseDto<DisciplineDto>()

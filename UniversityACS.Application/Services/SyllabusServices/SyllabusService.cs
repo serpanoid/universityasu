@@ -2,6 +2,7 @@
 using UniversityACS.Application.Mappings;
 using UniversityACS.Core.DTOs;
 using UniversityACS.Core.DTOs.Requests;
+using UniversityACS.Core.DTOs.Responses;
 using UniversityACS.Data.DataContext;
 
 namespace UniversityACS.Application.Services.SyllabusServices;
@@ -18,13 +19,20 @@ public class SyllabusService : ISyllabusService
     public async Task<CreateResponseDto<SyllabusDto>> CreateAsync(SyllabusDto dto, CancellationToken cancellationToken)
     {
         var syllabus = dto.ToEntity();
+        
+        if (dto.File != null)
+        {
+            using var memoryStream = new MemoryStream();
+            await dto.File.CopyToAsync(memoryStream, cancellationToken);
+            syllabus.File = memoryStream.ToArray();
+        }
+        
         await _context.Syllabi.AddAsync(syllabus, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         
         return new CreateResponseDto<SyllabusDto>
         {
             Success = true, 
-            Item = syllabus.ToDto(), 
             Id = syllabus.Id
         };
     }
@@ -44,13 +52,19 @@ public class SyllabusService : ISyllabusService
         }
         
         existingSyllabus.UpdateEntity(dto);
+        if (dto.File != null)
+        {
+            using var memoryStream = new MemoryStream();
+            await dto.File.CopyToAsync(memoryStream, cancellationToken);
+            existingSyllabus.File = memoryStream.ToArray();
+        }
+        
         _context.Syllabi.Update(existingSyllabus);
         await _context.SaveChangesAsync(cancellationToken);
 
         return new UpdateResponseDto<SyllabusDto>
         {
             Success = true, 
-            Item = existingSyllabus.ToDto(), 
             Id = existingSyllabus.Id
         };
     }
@@ -75,32 +89,33 @@ public class SyllabusService : ISyllabusService
         return new ResponseDto() { Success = true };
     }
 
-    public async Task<DetailsResponseDto<SyllabusDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<DetailsResponseDto<SyllabusResponseDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var existingSyllabus = await _context.Syllabi
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         if (existingSyllabus == null)
         {
-            return new DetailsResponseDto<SyllabusDto>
+            return new DetailsResponseDto<SyllabusResponseDto>
             {
                 Success = false, 
                 ErrorMessage = "Syllabus not found"
             };
         }
         
-        return new DetailsResponseDto<SyllabusDto> { 
+        return new DetailsResponseDto<SyllabusResponseDto> 
+        { 
             Success = true, 
             Item = existingSyllabus.ToDto()
         };
     }
 
-    public async Task<ListResponseDto<SyllabusDto>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<ListResponseDto<SyllabusResponseDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         var syllabi = await _context.Syllabi
             .ToListAsync(cancellationToken);
 
-        return new ListResponseDto<SyllabusDto>()
+        return new ListResponseDto<SyllabusResponseDto>()
         {
             Items = syllabi.Select(x => x.ToDto()).ToList(),
             TotalCount = syllabi.Count,
@@ -108,13 +123,13 @@ public class SyllabusService : ISyllabusService
         };
     }
 
-    public async Task<ListResponseDto<SyllabusDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<ListResponseDto<SyllabusResponseDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         var syllabi = await _context.Syllabi
             .Where(x=>x.TeacherId == userId)
             .ToListAsync(cancellationToken);
 
-        return new ListResponseDto<SyllabusDto>()
+        return new ListResponseDto<SyllabusResponseDto>()
         {
             Items = syllabi.Select(x => x.ToDto()).ToList(),
             TotalCount = syllabi.Count,

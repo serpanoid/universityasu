@@ -7,10 +7,6 @@ public class Syllabus
     public Guid? TeacherId { get; set; }
     public ApplicationUser? Teacher { get; set; }
     
-    public string? CourseTitle { get; set; }
-    public string? Instructor { get; set; }
-    public string? CourseDescription { get; set; }
-    public string? GradingPolicy { get; set; }
-    public List<string>? Textbooks { get; set; }
-    public List<string>? CourseSchedule { get; set; } 
+    public string? Name { get; set; }
+    public byte[]? File { get; set; }
 }

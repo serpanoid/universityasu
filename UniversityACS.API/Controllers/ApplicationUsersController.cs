@@ -24,7 +24,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.CreateAsync(dto, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -37,7 +37,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.UpdateAsync(id, dto, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -49,7 +49,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.DeleteAsync(id, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -62,7 +62,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.GetByIdAsync(id, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -75,7 +75,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.GetByDepartmentIdAsync(departmentId, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -88,7 +88,7 @@ public class ApplicationUsersController : ControllerBase
         var response = await _applicationUserService.GetAllAsync(cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
         }
 
         return Ok(response);
@@ -102,7 +102,20 @@ public class ApplicationUsersController : ControllerBase
             await _applicationUserService.ChangePasswordAsync(changePasswordDto, cancellationToken);
         if (!response.Success)
         {
-            return BadRequest(response.ErrorMessage);
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
+    
+    [HttpPut(ApiEndpoints.Users.UpdateUserRolesAsync)]
+    public async Task<ActionResult<ResponseDto>> UpdateUserRolesAsync(UpdateUserRolesDto requestDto,
+        CancellationToken cancellationToken)
+    {
+        var response = await _applicationUserService.UpdateUserRolesAsync(requestDto, cancellationToken);
+        if (!response.Success)
+        {
+            return BadRequest(response);
         }
 
         return Ok(response);

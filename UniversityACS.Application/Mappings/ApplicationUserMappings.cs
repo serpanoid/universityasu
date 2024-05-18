@@ -1,4 +1,5 @@
 ﻿using UniversityACS.Core.DTOs.Requests;
+using UniversityACS.Core.DTOs.Responses;
 using UniversityACS.Core.Entities;
 
 namespace UniversityACS.Application.Mappings;
@@ -15,7 +16,9 @@ public static class ApplicationUserMappings
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             DepartmentId = dto.DepartmentId,
-            PhoneNumber = dto.PhoneNumber
+            PhoneNumber = dto.PhoneNumber,
+            ConcurrencyStamp = Guid.NewGuid().ToString(),
+            SecurityStamp = Guid.NewGuid().ToString()
         };
     }
 
@@ -30,9 +33,9 @@ public static class ApplicationUserMappings
         user.PhoneNumber = dto.PhoneNumber;
     }
 
-    public static ApplicationUserDto ToDto(this ApplicationUser user)
+    public static ApplicationUserResponseDto ToDto(this ApplicationUser user)
     {
-        return new ApplicationUserDto
+        return new ApplicationUserResponseDto
         {
             Id = user.Id,
             UserName = user.UserName,
