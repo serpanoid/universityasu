@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace UniversityACS.API.Middleware;
 
@@ -24,10 +25,14 @@ public class AppExceptionsMiddleware
 
         switch (ex)
         {
+            case DbUpdateException dbUpdateException:
+                errorResponseDto.ErrorMessage = dbUpdateException.InnerException?.Message;
+                errorResponseDto.StatusCode = 400;
+                break;
             
             default:
                 errorResponseDto.ErrorMessage = ex.Message;
-                errorResponseDto.StatusCode = 500;
+                errorResponseDto.StatusCode = 400;
                 errorResponseDto.Element = "unknown";
                 errorResponseDto.Id = "unknown";
                 break;

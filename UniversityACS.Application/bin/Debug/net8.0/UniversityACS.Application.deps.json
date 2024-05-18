@@ -9,7 +9,8 @@
       "UniversityACS.Application/1.0.0": {
         "dependencies": {
           "UniversityACS.Core": "1.0.0",
-          "UniversityACS.Data": "1.0.0"
+          "UniversityACS.Data": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "8.0.0.0"
         },
         "runtime": {
           "UniversityACS.Application.dll": {}
@@ -270,6 +271,30 @@
         "runtime": {
           "UniversityACS.Data.dll": {}
         }
+      },
+      "Microsoft.AspNetCore.Http.Abstractions/8.0.0.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Http.Abstractions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.524.22404"
+          }
+        }
+      },
+      "Microsoft.Extensions.Features/8.0.0.0": {
+        "runtime": {
+          "Microsoft.Extensions.Features.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.524.22404"
+          }
+        }
+      },
+      "Microsoft.Net.Http.Headers/8.0.0.0": {
+        "runtime": {
+          "Microsoft.Net.Http.Headers.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.524.22404"
+          }
+        }
       }
     }
   },
@@ -440,6 +465,21 @@
     },
     "UniversityACS.Data/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/8.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Features/8.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Net.Http.Headers/8.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
