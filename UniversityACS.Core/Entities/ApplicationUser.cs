@@ -13,6 +13,6 @@ public class ApplicationUser : IdentityUser<Guid>
     public Department? Department { get; set; }
     public List<Discipline>? Disciplines { get; set; }
     public List<Syllabus>? Syllabi { get; set; }
-    public List<Traineeship>? Traineeships { get; set; }
-    public List<ScientificAndPedagogicalActivity>? ScientificAndPedagogicalActivities { get; set; }
+    public Traineeship? Traineeship { get; set; }
+    public ScientificAndPedagogicalActivity? ScientificAndPedagogicalActivity { get; set; }
 }

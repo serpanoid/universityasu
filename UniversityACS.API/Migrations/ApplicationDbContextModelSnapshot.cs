@@ -105,6 +105,13 @@ namespace UniversityACS.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("4d82beb4-5e7b-48e6-b084-5bdc485bc1e7"),
+                            RoleId = new Guid("5890b8ca-a2fd-48e4-a9b7-9e1ba1bd4b9f")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -151,6 +158,28 @@ namespace UniversityACS.API.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5890b8ca-a2fd-48e4-a9b7-9e1ba1bd4b9f"),
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("f68b52f3-713e-48e7-968a-6be47c9ce300"),
+                            Name = "DepartHead"
+                        },
+                        new
+                        {
+                            Id = new Guid("1577fd47-47e9-4884-949d-c8932382631c"),
+                            Name = "Teacher"
+                        },
+                        new
+                        {
+                            Id = new Guid("77348823-4700-468b-a4ae-8ae52e99ee08"),
+                            Name = "Student"
+                        });
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.ApplicationUser", b =>
@@ -233,6 +262,63 @@ namespace UniversityACS.API.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4d82beb4-5e7b-48e6-b084-5bdc485bc1e7"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e25f6067-a360-4b65-96b5-0fe73ad1e44e",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIqhAJJQovc9DThjjSM5DBN/pRn0T2E3wPbFJx5rgQLEEUUF9nOcTq41aTgBvA4iZw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.CertificationReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CertificationReports");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.Curriculum", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Curricula");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.Department", b =>
@@ -250,27 +336,90 @@ namespace UniversityACS.API.Migrations
                     b.Property<Guid?>("HeadOfDepartmentId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("HeadOfDepartmentId1")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadOfDepartmentId1");
+                    b.HasIndex("HeadOfDepartmentId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.DepartmentMeetingPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("DepartmentMeetingPlans");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.DepartmentMeetingProtocol", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("DepartmentMeetingProtocols");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.DevelopmentPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("DevelopmentPlans");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.Discipline", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("uuid");
 
                     b.Property<List<string>>("Courses")
@@ -288,9 +437,98 @@ namespace UniversityACS.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("Disciplines");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.ExchangeVisitsPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("ExchangeVisitsPlans");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.IndividualPlan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("IndividualPlans");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.News", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsFromDepartment")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("News");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.Schedule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.ScientificAndPedagogicalActivity", b =>
@@ -299,35 +537,93 @@ namespace UniversityACS.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ActivityDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
 
-                    b.Property<string>("ActivityTitle")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FieldOfStudy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Findings")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("text");
-
-                    b.Property<List<string>>("Participants")
-                        .HasColumnType("text[]");
 
                     b.Property<Guid?>("TeacherId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherId")
+                        .IsUnique();
 
                     b.ToTable("ScientificAndPedagogicalActivities");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.Statement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statements");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.SubmissionToCertificationThemes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubmissionToCertificationThemes");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.SubmissionToTheCommittee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubmissionToTheCommittees");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.SubmissionToTheHeadOfCommittee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubmissionToTheHeadOfCommittees");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.Syllabus", b =>
@@ -336,26 +632,14 @@ namespace UniversityACS.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("CourseDescription")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
 
-                    b.Property<List<string>>("CourseSchedule")
-                        .HasColumnType("text[]");
-
-                    b.Property<string>("CourseTitle")
-                        .HasColumnType("text");
-
-                    b.Property<string>("GradingPolicy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Instructor")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<Guid?>("TeacherId")
                         .HasColumnType("uuid");
-
-                    b.Property<List<string>>("Textbooks")
-                        .HasColumnType("text[]");
 
                     b.HasKey("Id");
 
@@ -364,35 +648,108 @@ namespace UniversityACS.API.Migrations
                     b.ToTable("Syllabi");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeacherDiscipline", b =>
+                {
+                    b.Property<Guid>("DisciplineId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("DisciplineId", "TeacherId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("TeacherDisciplines");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeacherTest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("TestTheme")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TestUrl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("TeacherTests");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeachingLoad", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("TeachingLoads");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.Traineeship", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Company")
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Position")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid?>("TraineeId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TraineeId");
+                    b.HasIndex("TraineeId")
+                        .IsUnique();
 
                     b.ToTable("Traineeships");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.WorkingCurriculum", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("WorkingCurricula");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -455,27 +812,92 @@ namespace UniversityACS.API.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.Curriculum", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.Department", b =>
                 {
                     b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "HeadOfDepartment")
                         .WithMany()
-                        .HasForeignKey("HeadOfDepartmentId1");
+                        .HasForeignKey("HeadOfDepartmentId");
 
                     b.Navigation("HeadOfDepartment");
                 });
 
-            modelBuilder.Entity("UniversityACS.Core.Entities.Discipline", b =>
+            modelBuilder.Entity("UniversityACS.Core.Entities.DepartmentMeetingPlan", b =>
                 {
-                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", null)
-                        .WithMany("Disciplines")
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("UniversityACS.Core.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.DepartmentMeetingProtocol", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.DevelopmentPlan", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.ExchangeVisitsPlan", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.IndividualPlan", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.News", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.Schedule", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.ScientificAndPedagogicalActivity", b =>
                 {
                     b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
-                        .WithMany("ScientificAndPedagogicalActivities")
-                        .HasForeignKey("TeacherId");
+                        .WithOne("ScientificAndPedagogicalActivity")
+                        .HasForeignKey("UniversityACS.Core.Entities.ScientificAndPedagogicalActivity", "TeacherId");
 
                     b.Navigation("Teacher");
                 });
@@ -489,24 +911,68 @@ namespace UniversityACS.API.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeacherDiscipline", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.Discipline", "Discipline")
+                        .WithMany()
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discipline");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeacherTest", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.TeachingLoad", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.Traineeship", b =>
                 {
                     b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Trainee")
-                        .WithMany("Traineeships")
-                        .HasForeignKey("TraineeId");
+                        .WithOne("Traineeship")
+                        .HasForeignKey("UniversityACS.Core.Entities.Traineeship", "TraineeId");
 
                     b.Navigation("Trainee");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.WorkingCurriculum", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("Disciplines");
-
-                    b.Navigation("ScientificAndPedagogicalActivities");
+                    b.Navigation("ScientificAndPedagogicalActivity");
 
                     b.Navigation("Syllabi");
 
-                    b.Navigation("Traineeships");
+                    b.Navigation("Traineeship");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.Department", b =>

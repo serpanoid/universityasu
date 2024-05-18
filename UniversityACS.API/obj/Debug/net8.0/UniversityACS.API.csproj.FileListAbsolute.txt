@@ -116,3 +116,11 @@ H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysi
 H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 H:\Git\UniversityACS\UniversityACS.API\obj\Debug\net8.0\UniversityACS.API.sourcelink.json
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+H:\Git\UniversityACS\UniversityACS.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

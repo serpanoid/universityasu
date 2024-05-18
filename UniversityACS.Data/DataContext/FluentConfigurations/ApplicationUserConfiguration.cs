@@ -9,9 +9,9 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.HasOne(x => x.Department)
-            .WithMany(x => x.Members)
-            .HasForeignKey(x => x.DepartmentId);
+        builder.HasMany(x => x.Disciplines)
+            .WithMany(x => x.Teachers)
+            .UsingEntity<TeacherDiscipline>();
         
         var hasher = new PasswordHasher<ApplicationUser>();
 

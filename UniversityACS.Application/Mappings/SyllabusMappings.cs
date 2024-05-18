@@ -1,4 +1,5 @@
 ﻿using UniversityACS.Core.DTOs.Requests;
+using UniversityACS.Core.DTOs.Responses;
 using UniversityACS.Core.Entities;
 
 namespace UniversityACS.Application.Mappings;
@@ -11,38 +12,25 @@ public static class SyllabusMappings
         {
             Id = dto.Id,
             TeacherId = dto.TeacherId,
-            CourseTitle = dto.CourseTitle,
-            Instructor = dto.Instructor,
-            CourseDescription = dto.CourseDescription,
-            GradingPolicy = dto.GradingPolicy,
-            Textbooks = dto.Textbooks,
-            CourseSchedule = dto.CourseSchedule
+            Name = dto.Name
         };
     }
 
     public static void UpdateEntity(this Syllabus syllabus, SyllabusDto dto)
     {
         syllabus.TeacherId = dto.TeacherId;
-        syllabus.CourseTitle = dto.CourseTitle;
-        syllabus.Instructor = dto.Instructor;
-        syllabus.CourseDescription = dto.CourseDescription;
-        syllabus.GradingPolicy = dto.GradingPolicy;
-        syllabus.Textbooks = dto.Textbooks;
-        syllabus.CourseSchedule = dto.CourseSchedule;
+        syllabus.Name = dto.Name;
     }
 
-    public static SyllabusDto ToDto(this Syllabus syllabus)
+    public static SyllabusResponseDto ToDto(this Syllabus syllabus)
     {
-        return new SyllabusDto
+        return new SyllabusResponseDto
         {
             Id = syllabus.Id,
             TeacherId = syllabus.TeacherId,
-            CourseTitle = syllabus.CourseTitle,
-            Instructor = syllabus.Instructor,
-            CourseDescription = syllabus.CourseDescription,
-            GradingPolicy = syllabus.GradingPolicy,
-            Textbooks = syllabus.Textbooks,
-            CourseSchedule = syllabus.CourseSchedule
+            TeacherName = syllabus.Teacher?.UserName,
+            Name = syllabus.Name,
+            File = syllabus.File
         };
     }
 }

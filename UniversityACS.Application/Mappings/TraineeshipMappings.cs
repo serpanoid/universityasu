@@ -1,4 +1,5 @@
 ﻿using UniversityACS.Core.DTOs.Requests;
+using UniversityACS.Core.DTOs.Responses;
 using UniversityACS.Core.Entities;
 
 namespace UniversityACS.Application.Mappings;
@@ -11,35 +12,25 @@ public static class TraineeshipMappings
         {
             Id = dto.Id,
             TraineeId = dto.TraineeId,
-            Company = dto.Company,
-            Position = dto.Position,
-            StartDate = dto.StartDate,
-            EndDate = dto.EndDate,
-            Salary = dto.Salary
+            Name = dto.Name,
         };
     }
 
     public static void UpdateEntity(this Traineeship traineeship, TraineeshipDto dto)
     {
         traineeship.TraineeId = dto.TraineeId;
-        traineeship.Company = dto.Company;
-        traineeship.Position = dto.Position;
-        traineeship.StartDate = dto.StartDate;
-        traineeship.EndDate = dto.EndDate;
-        traineeship.Salary = dto.Salary;
+        traineeship.Name = dto.Name;
     }
 
-    public static TraineeshipDto ToDto(this Traineeship traineeship)
+    public static TraineeshipResponseDto ToDto(this Traineeship traineeship)
     {
-        return new TraineeshipDto
+        return new TraineeshipResponseDto
         {
             Id = traineeship.Id,
             TraineeId = traineeship.TraineeId,
-            Company = traineeship.Company,
-            Position = traineeship.Position,
-            StartDate = traineeship.StartDate,
-            EndDate = traineeship.EndDate,
-            Salary = traineeship.Salary
+            TraineeName = traineeship.Trainee?.UserName,
+            Name = traineeship.Name,
+            File = traineeship.File
         };
     }
 }

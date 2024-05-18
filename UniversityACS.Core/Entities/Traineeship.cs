@@ -7,9 +7,6 @@ public class Traineeship
     public Guid? TraineeId { get; set; }
     public ApplicationUser? Trainee { get; set; }
     
-    public string? Company { get; set; }
-    public string? Position { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public decimal Salary { get; set; }
+    public string? Name { get; set; }
+    public byte[]? File { get; set; }
 }

@@ -10,8 +10,9 @@ public static partial class ApiEndpoints
         public const string Delete = $"{Base}/{{id:guid}}";
         public const string Update = $"{Base}/{{id:guid}}";
         public const string GetById = $"{Base}/{{id:guid}}";
-        public const string GetByDepartmentId = $"{Base}/{{departmentId:guid}}";
+        public const string GetByDepartmentId = $"{Base}/{nameof(GetByDepartmentId)}/{{departmentId:guid}}";
         public const string GetAll = Base;
         public const string ChangePassword = $"{Base}/{nameof(ChangePassword)}";
+        public const string UpdateUserRolesAsync = $"{Base}/{nameof(UpdateUserRolesAsync)}";
     }
 }
