@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UniversityACS.API.Endpoints;
 using UniversityACS.API.Services.Identity;
 using UniversityACS.Core.DTOs;
@@ -26,6 +28,7 @@ public class IdentityController : ControllerBase
         return Unauthorized(response);
     }
     
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet(ApiEndpoints.Identity.GetCurrentUser)]
     public async Task<ActionResult<DetailsResponseDto<ApplicationUserResponseDto>>> GetCurrentUser(CancellationToken cancellationToken)
     {

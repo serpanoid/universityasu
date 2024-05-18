@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UniversityACS.Application.Extensions;
 using UniversityACS.Application.Mappings;
 using UniversityACS.Core.DTOs;
 using UniversityACS.Core.DTOs.Requests;
@@ -57,26 +58,7 @@ public class IdentityService : IIdentityService
 
     public async Task<DetailsResponseDto<ApplicationUserResponseDto>> GetCurrentUser(CancellationToken cancellationToken)
     {
-        var userName = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-        if (string.IsNullOrWhiteSpace(userName))
-        {
-            return new DetailsResponseDto<ApplicationUserResponseDto>()
-            {
-                Success = false,
-                ErrorMessage = "User not found"
-            };
-        }
-
-        var user = await _context.ApplicationUsers
-            .FirstOrDefaultAsync(x => x.UserName == userName, cancellationToken);
-        if (user == null)
-        {
-            return new DetailsResponseDto<ApplicationUserResponseDto>()
-            {
-                Success = false,
-                ErrorMessage = "User not found"
-            };
-        }
+        var user = await _httpContextAccessor.HttpContext.GetUserFromContextAsync(_context, cancellationToken);
 
         return new DetailsResponseDto<ApplicationUserResponseDto>()
         {
