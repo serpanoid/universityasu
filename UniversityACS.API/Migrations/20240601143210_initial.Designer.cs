@@ -13,7 +13,7 @@ using UniversityACS.Data.DataContext;
 namespace UniversityACS.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240601084757_initial")]
+    [Migration("20240601143210_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -279,13 +279,13 @@ namespace UniversityACS.API.Migrations
                         {
                             Id = new Guid("4d82beb4-5e7b-48e6-b084-5bdc485bc1e7"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1f4505b8-416c-4331-be5a-e26c5260d26b",
+                            ConcurrencyStamp = "cfecaf83-e6af-4268-a7bc-b8dbfe358a78",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGMx5HYJ3AIZNvFuCZq8rYWtZTP1M4VvVUP7icL4gzL1D16zSgUnCnnFufuEecAPrA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHtMx+Fd07lnfNZFbkyDIP04RiFsej9S2MnzLg4sIjN0Sx6uHkx7mk+6qa7uwclrPg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -543,6 +543,36 @@ namespace UniversityACS.API.Migrations
                     b.ToTable("IndividualPlans");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.Lesson", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("HomeWorkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LessonName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SubjectName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeWorkId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Lessons");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.News", b =>
                 {
                     b.Property<Guid>("Id")
@@ -632,6 +662,36 @@ namespace UniversityACS.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Statements");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.StudentAttendance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsLate")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPresent")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentAttendances");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.StudentsGroup", b =>
@@ -979,6 +1039,25 @@ namespace UniversityACS.API.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("UniversityACS.Core.Entities.Lesson", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.HomeWork", "HomeWork")
+                        .WithMany()
+                        .HasForeignKey("HomeWorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HomeWork");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("UniversityACS.Core.Entities.News", b =>
                 {
                     b.HasOne("UniversityACS.Core.Entities.Department", "Department")
@@ -1004,6 +1083,25 @@ namespace UniversityACS.API.Migrations
                         .HasForeignKey("UniversityACS.Core.Entities.ScientificAndPedagogicalActivity", "TeacherId");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.StudentAttendance", b =>
+                {
+                    b.HasOne("UniversityACS.Core.Entities.Lesson", "Lesson")
+                        .WithMany("StudentAttendances")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityACS.Core.Entities.ApplicationUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.Syllabus", b =>
@@ -1082,6 +1180,11 @@ namespace UniversityACS.API.Migrations
             modelBuilder.Entity("UniversityACS.Core.Entities.Department", b =>
                 {
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("UniversityACS.Core.Entities.Lesson", b =>
+                {
+                    b.Navigation("StudentAttendances");
                 });
 
             modelBuilder.Entity("UniversityACS.Core.Entities.StudentsGroup", b =>

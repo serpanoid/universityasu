@@ -14,10 +14,12 @@ using UniversityACS.Application.Services.DisciplineServices;
 using UniversityACS.Application.Services.ExchangeVisitPlanServices;
 using UniversityACS.Application.Services.HomeWorkServices;
 using UniversityACS.Application.Services.IndividualPlanServices;
+using UniversityACS.Application.Services.LessonServices;
 using UniversityACS.Application.Services.NewsServices;
 using UniversityACS.Application.Services.ScheduleServices;
 using UniversityACS.Application.Services.ScientificAndPedagogicalActivityServices;
 using UniversityACS.Application.Services.StatementServices;
+using UniversityACS.Application.Services.StudentAttendanceServices;
 using UniversityACS.Application.Services.StudentsGroupServices;
 using UniversityACS.Application.Services.SubmissionToCertificationThemesServices;
 using UniversityACS.Application.Services.SubmissionToTheCommitteeServices;
@@ -62,6 +64,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IWorkingCurriculumService, WorkingCurriculumService>();
         services.AddScoped<IHomeWorkService, HomeWorkService>();
         services.AddScoped<IStudentsGroupService, StudentsGroupService>();
+        services.AddScoped<IStudentAttendanceService, StudentAttendanceService>();
+        services.AddScoped<ILessonService, LessonService>();
 
         return services;
     }
