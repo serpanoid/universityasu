@@ -44,7 +44,10 @@ public static class ApplicationUserMappings
             FirstName = user.FirstName,
             LastName = user.LastName,
             DepartmentId = user.DepartmentId,
-            PhoneNumber = user.PhoneNumber
+            PhoneNumber = user.PhoneNumber,
+            DepartmentName = user.Department?.Name,
+            GroupName = user.StudentsGroup?.Name,
+            GroupId = user.GroupId
         };
     }
 }

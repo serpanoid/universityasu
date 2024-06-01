@@ -72,6 +72,19 @@ namespace UniversityACS.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudentsGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentsGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubmissionToCertificationThemes",
                 columns: table => new
                 {
@@ -188,6 +201,8 @@ namespace UniversityACS.API.Migrations
                     DepartmentEmail = table.Column<string>(type: "text", nullable: true),
                     Address = table.Column<string>(type: "text", nullable: true),
                     DepartmentId = table.Column<Guid>(type: "uuid", nullable: true),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: true),
+                    StudentsGroupId = table.Column<Guid>(type: "uuid", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -206,6 +221,11 @@ namespace UniversityACS.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_StudentsGroups_StudentsGroupId",
+                        column: x => x.StudentsGroupId,
+                        principalTable: "StudentsGroups",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -302,6 +322,42 @@ namespace UniversityACS.API.Migrations
                         name: "FK_ExchangeVisitsPlans_AspNetUsers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomeWorks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    Answer = table.Column<string>(type: "text", nullable: true),
+                    File = table.Column<byte[]>(type: "bytea", nullable: true),
+                    IsChecked = table.Column<bool>(type: "boolean", nullable: false),
+                    Grade = table.Column<int>(type: "integer", nullable: false),
+                    DisciplineId = table.Column<Guid>(type: "uuid", nullable: true),
+                    StudentId = table.Column<Guid>(type: "uuid", nullable: true),
+                    TeacherId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomeWorks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HomeWorks_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_HomeWorks_AspNetUsers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_HomeWorks_Disciplines_DisciplineId",
+                        column: x => x.DisciplineId,
+                        principalTable: "Disciplines",
                         principalColumn: "Id");
                 });
 
@@ -553,8 +609,8 @@ namespace UniversityACS.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DepartmentEmail", "DepartmentId", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("4d82beb4-5e7b-48e6-b084-5bdc485bc1e7"), 0, null, "e25f6067-a360-4b65-96b5-0fe73ad1e44e", null, null, "admin@gmail.com", false, null, null, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEIqhAJJQovc9DThjjSM5DBN/pRn0T2E3wPbFJx5rgQLEEUUF9nOcTq41aTgBvA4iZw==", null, false, "", false, "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DepartmentEmail", "DepartmentId", "Email", "EmailConfirmed", "FirstName", "GroupId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StudentsGroupId", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("4d82beb4-5e7b-48e6-b084-5bdc485bc1e7"), 0, null, "1f4505b8-416c-4331-be5a-e26c5260d26b", null, null, "admin@gmail.com", false, null, null, null, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEGMx5HYJ3AIZNvFuCZq8rYWtZTP1M4VvVUP7icL4gzL1D16zSgUnCnnFufuEecAPrA==", null, false, "", null, false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -598,6 +654,11 @@ namespace UniversityACS.API.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_StudentsGroupId",
+                table: "AspNetUsers",
+                column: "StudentsGroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -631,6 +692,21 @@ namespace UniversityACS.API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ExchangeVisitsPlans_TeacherId",
                 table: "ExchangeVisitsPlans",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeWorks_DisciplineId",
+                table: "HomeWorks",
+                column: "DisciplineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeWorks_StudentId",
+                table: "HomeWorks",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeWorks_TeacherId",
+                table: "HomeWorks",
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
@@ -758,6 +834,9 @@ namespace UniversityACS.API.Migrations
                 name: "ExchangeVisitsPlans");
 
             migrationBuilder.DropTable(
+                name: "HomeWorks");
+
+            migrationBuilder.DropTable(
                 name: "IndividualPlans");
 
             migrationBuilder.DropTable(
@@ -810,6 +889,9 @@ namespace UniversityACS.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Departments");
+
+            migrationBuilder.DropTable(
+                name: "StudentsGroups");
         }
     }
 }

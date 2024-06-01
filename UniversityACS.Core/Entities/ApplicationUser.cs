@@ -15,4 +15,7 @@ public class ApplicationUser : IdentityUser<Guid>
     public List<Syllabus>? Syllabi { get; set; }
     public Traineeship? Traineeship { get; set; }
     public ScientificAndPedagogicalActivity? ScientificAndPedagogicalActivity { get; set; }
+
+    public Guid? GroupId { get; set; }
+    public StudentsGroup? StudentsGroup { get; set; }
 }
