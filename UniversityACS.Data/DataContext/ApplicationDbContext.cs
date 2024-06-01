@@ -44,4 +44,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<TeachingLoad> TeachingLoads { get; set; }
     public DbSet<WorkingCurriculum> WorkingCurricula { get; set; }
     public DbSet<TeacherDiscipline> TeacherDisciplines { get; set; }
+    public DbSet<StudentsGroup> StudentsGroups { get; set; }
+    public DbSet<HomeWork> HomeWorks { get; set; }
 }
